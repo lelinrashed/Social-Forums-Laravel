@@ -10,8 +10,6 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
@@ -19,6 +17,9 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    {{-- Adding tostar css --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css">
+
 </head>
 <body>
     <div id="app">
@@ -97,11 +98,28 @@
                     </div>
                 </div>
                 <div class="col-md-8">
+                    @if($errors->count() > 0)
+                        <ul class="list-group-item">
+                            @foreach($errors->all() as $error)
+                                <li class="list-group-item text-danger">{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    @endif
+                        <br>
                     @yield('content')
                 </div>
                 </div>
             </div>
         </main>
     </div>
+    {{--script--}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
+    <script>
+        @if (session('status'))
+            toastr.success('{{ session('status') }}')
+        @endif
+    </script>
 </body>
 </html>

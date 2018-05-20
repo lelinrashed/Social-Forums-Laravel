@@ -3,14 +3,6 @@
 @section('content')
 
     <div class="card">
-        @if (session('status'))
-            <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                {{ session('status') }}
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        @endif
         <div class="card-header">
             <img src="{{ asset($d->user->avatar) }}" alt="" style="border-radius: 50%;" width="70px" height="70px">&nbsp;&nbsp;
             <span>{{ $d->user->name }}, <b>{{ $d->created_at->diffForHumans() }}</b> <b>( {{ $d->user->points }} )</b></span>&nbsp;&nbsp;
@@ -60,7 +52,7 @@
                 <br>
                 <img src="{{ asset($r->user->avatar) }}" alt="" style="border-radius: 50%;" width="50px" height="50px">&nbsp;&nbsp;<br>
                 <span>{{ $r->user->name }}, <b>{{ $r->created_at->diffForHumans() }}</b> <b>( {{ $r->user->points }} )</b></span>&nbsp;&nbsp;
-                @if(!$best_answer)
+                @if(!$best_answer && Auth::id() == $r->user->id)
                     <a href="{{ route('discussion.best.answer', ['id' => $r->id]) }}" class="btn btn-info float-right">Mark as best answer</a>
                 @endif
             </div>
