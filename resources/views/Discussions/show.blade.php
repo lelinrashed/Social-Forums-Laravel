@@ -13,7 +13,7 @@
         @endif
         <div class="card-header">
             <img src="{{ asset($d->user->avatar) }}" alt="" style="border-radius: 50%;" width="70px" height="70px">&nbsp;&nbsp;
-            <span>{{ $d->user->name }}, <b>{{ $d->created_at->diffForHumans() }}</b></span>&nbsp;&nbsp;
+            <span>{{ $d->user->name }}, <b>{{ $d->created_at->diffForHumans() }}</b> <b>( {{ $d->user->points }} )</b></span>&nbsp;&nbsp;
             @if($d->is_being_watched_by_auth_user())
                 <a href="{{ route('discussion.unwatch', ['id' => $d->id]) }}" class="btn btn-info float-right">Unwatch</a>
             @else
@@ -37,7 +37,7 @@
                     <div class="card">
                         <div class="card-header">
                             <img src="{{ asset($best_answer->user->avatar) }}" alt="" style="border-radius: 50%;" width="70px" height="70px">&nbsp;&nbsp;
-                            <span>{{ $best_answer->user->name }}</span>&nbsp;&nbsp;
+                            <span>{{ $best_answer->user->name }}</span>&nbsp;&nbsp; <b>( {{ $best_answer->user->points }} )</b>
                         </div>
                         <div class="card-body">
                             {{ $best_answer->content }}
@@ -59,7 +59,7 @@
             <div style="padding-left: 15px;">
                 <br>
                 <img src="{{ asset($r->user->avatar) }}" alt="" style="border-radius: 50%;" width="50px" height="50px">&nbsp;&nbsp;<br>
-                <span>{{ $r->user->name }}, <b>{{ $r->created_at->diffForHumans() }}</b></span>&nbsp;&nbsp;
+                <span>{{ $r->user->name }}, <b>{{ $r->created_at->diffForHumans() }}</b> <b>( {{ $r->user->points }} )</b></span>&nbsp;&nbsp;
                 @if(!$best_answer)
                     <a href="{{ route('discussion.best.answer', ['id' => $r->id]) }}" class="btn btn-info float-right">Mark as best answer</a>
                 @endif
@@ -98,8 +98,6 @@
             @endif
         </div>
     </div>
-
-
 
 
 @endsection
