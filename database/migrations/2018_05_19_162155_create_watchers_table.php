@@ -15,6 +15,10 @@ class CreateWatchersTable extends Migration
     {
         Schema::create('watchers', function (Blueprint $table) {
             $table->increments('id');
+
+            $table->integer('discussion_id')->unsigned();
+            $table->integer('user_id')->unsigned();
+
             $table->timestamps();
         });
     }

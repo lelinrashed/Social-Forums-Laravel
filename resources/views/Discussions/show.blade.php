@@ -14,7 +14,11 @@
         <div class="card-header">
             <img src="{{ asset($d->user->avatar) }}" alt="" style="border-radius: 50%;" width="70px" height="70px">&nbsp;&nbsp;
             <span>{{ $d->user->name }}, <b>{{ $d->created_at->diffForHumans() }}</b></span>&nbsp;&nbsp;
-            <a href="{{ route('discussion', ['slug' => $d->slug]) }}" style="float: right;" class="btn btn-info">Watch</a>
+            @if($d->is_being_watched_by_auth_user())
+                <a href="{{ route('discussion.unwatch', ['id' => $d->id]) }}" class="btn btn-info float-right">Unwatch</a>
+            @else
+                <a href="{{ route('discussion.watch', ['id' => $d->id]) }}" class="btn btn-info float-right">Watch</a>
+            @endif
             <span style="clear: both"></span>
         </div>
         <div class="card-body">
