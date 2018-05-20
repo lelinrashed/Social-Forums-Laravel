@@ -44,14 +44,16 @@ class DiscussionsController extends Controller
     {
         $discussion = Discussion::where('slug', $slug)->first();
 
-        return view('Discussions.show')->with('d', $discussion);
+        $best_answer = $discussion->replies()->where('best_answer', 1)->first();
+
+        return view('Discussions.show')->with('d', $discussion)
+                                            ->with('best_answer', $best_answer);
     }
 
 
     public function reply($id)
     {
         $d = Discussion::find($id);
-
 
         $reply = Reply::create([
             'user_id' => Auth::id(),
